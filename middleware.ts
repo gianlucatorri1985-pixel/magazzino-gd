@@ -2,11 +2,15 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const isLoggedIn = request.cookies.get('sb-access-token')
+  const cookies = request.cookies.getAll()
+
+  const hasSupabaseToken = cookies.some(cookie =>
+    cookie.name.startsWith('sb-') && cookie.name.includes('auth-token')
+  )
 
   const isLoginPage = request.nextUrl.pathname.startsWith('/login')
 
-  if (!isLoggedIn && !isLoginPage) {
+  if (!hasSupabaseToken && !isLoginPage) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
