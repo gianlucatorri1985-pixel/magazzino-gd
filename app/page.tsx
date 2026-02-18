@@ -1,40 +1,35 @@
-import AppShell from "@/components/AppShell";
+"use client";
 
-function Card({
-  title,
-  desc,
-}: {
-  title: string;
-  desc: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-6 shadow-sm">
-      <div className="text-lg font-bold">{title}</div>
-      <div className="mt-2 text-sm opacity-75">{desc}</div>
-      <button className="mt-5 rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700">
-        Apri
-      </button>
-    </div>
-  );
-}
+import AppShell from "@/components/AppShell";
 
 export default function Home() {
   return (
     <AppShell>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card
-          title="Scelta Guidata"
-          desc="Trova il filamento giusto in base a materiale, colore e uso."
-        />
-        <Card
-          title="Magazzino"
-          desc="Lista bobine, quantità, posizioni, note e stato."
-        />
-        <Card
-          title="Acquisti"
-          desc="Lista acquisti e storico: cosa serve, quando ordinare, fornitori."
-        />
+      <div className="p-10 text-white">
+        <h2 className="text-3xl font-bold mb-8">Dashboard Magazzino</h2>
+
+        <div className="grid grid-cols-3 gap-6">
+          <div className="bg-zinc-900 p-6 rounded-xl border border-red-700">
+            <h3 className="text-lg">Bobine Totali</h3>
+            <p className="text-3xl font-bold mt-2">0</p>
+          </div>
+
+          <div className="bg-zinc-900 p-6 rounded-xl border border-red-700">
+            <h3 className="text-lg">Colori Disponibili</h3>
+            <p className="text-3xl font-bold mt-2">0</p>
+          </div>
+
+          <div className="bg-zinc-900 p-6 rounded-xl border border-red-700">
+            <h3 className="text-lg">Materiali</h3>
+            <p className="text-3xl font-bold mt-2">PLA / PETG / ABS</p>
+          </div>
+        </div>
+
+        <button className="mt-10 bg-red-600 hover:bg-red-700 px-6 py-3 rounded-lg font-semibold">
+          + Nuovo Filamento
+        </button>
       </div>
     </AppShell>
   );
 }
+
