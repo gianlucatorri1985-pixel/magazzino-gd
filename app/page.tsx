@@ -1,35 +1,42 @@
 
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
-import { useRouter } from "next/navigation";
+import { useState } from "react"
+import { supabase } from "@/lib/supabaseClient"
+import { useRouter } from "next/navigation"
 
-export default function Home() {
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+export default function Login() {
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
+  const handleLogin = async () => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
 
-      if (!data.session) {
-        router.push("/login");
-      } else {
-        setLoading(false);
-      }
-    };
-
-    checkSession();
-  }, [router]);
-
-  if (loading) {
-    return <div style={{ padding: 40 }}>Controllo accesso...</div>;
+    if (!error) {
+      router.push("/")
+    } else {
+      alert(error.message)
+    }
   }
 
   return (
     <div>
-      <h1>Dashboard Magazzino</h1>
+      <h2>Login</h2>
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Accedi</button>
     </div>
-  );
+  )
 }
